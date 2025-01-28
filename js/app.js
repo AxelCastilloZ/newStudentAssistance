@@ -25,14 +25,15 @@ document.getElementById("boton-mostrar").addEventListener("click", function () {
     container.classList.toggle("visible");
 
     if (container.classList.contains("visible")) {
-        mostrarResumenGeneral(); // Llamar a la función al mostrar el resumen
+        mostrarResumenGeneral(); 
     }
 });
 
 
 
 function agregarEstudiante(){
-const studentForm=document.getElementById("assistanceForm-container");
+    const studentForm = document.getElementById("assistance");
+
 studentForm.addEventListener("submit",(e)=>{
     e.preventDefault();
 
@@ -40,11 +41,12 @@ studentForm.addEventListener("submit",(e)=>{
     const typeAssistance=document.getElementById("typeAssistance").value;
     
 
-    if(!studentName ){
-
+    if (!studentName) {
         alert("Llene todos los campos por favor");
+        document.getElementById("studentName").focus();
         return;
     }
+    
 
     const fechaActual=new Date().toISOString().split("T")[0];
 
@@ -117,16 +119,17 @@ function mostrarResumen(){
 
 
 
-function editarEstudiante(index){
-    const estudiante=estudiantes[index];
+function editarEstudiante(index) {
+    const estudiante = estudiantes[index];
+    document.getElementById("studentName").value = estudiante.nombreEstudiante;
+    document.getElementById("typeAssistance").value = estudiante.asistencia;
 
-    document.getElementById("studentName").value=estudiante.nombreEstudiante;
-    document.getElementById("typeAssistance").value=estudiante.asistencia;
-    
+    editarEstudiantes = index;
 
-    editarEstudiantes=index;
-
+    // Agregar estilo visual
+    document.querySelectorAll("table tbody tr")[index].classList.add("editing");
 }
+
 
 function eliminarEstudiante(index){
 
